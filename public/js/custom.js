@@ -2,50 +2,97 @@
  * Created by Дмитрий on 18.05.2017.
  */
 $(document).ready(function () {
-    var rand;
     var name = $('#name');
-    var mail = $('#e-mail');
+    var mail = $('#e_mail');
     var homepage = $('#homepage');
+    var captcha = $('#captcha');
     var text = $('#text');
+    // error variables
+    var errorName = $(".errorName");
+    var errorEmail = $(".errorEmeil");
+    var errorHomepage = $(".errorHomepage");
+    var errorCaptcha = $(".errorCaptcha");
+    var errorText = $(".errorText");
 
-    $(".glyphicon-refresh").click(function () {
-        var min = 1;
-        var max = 4;
-        rand = Math.floor(Math.random() * (max - min + 1)) + min;
-        var captcha = "[alt=captcha]";
-        switch (rand) {
-            case 1:
-                $(captcha).attr({"src": "{!! asset('img/captcha1.bmp') !!}"});
-                break;
 
-            case 2:
-                $(captcha).attr({"src": "{!! asset('img/captcha2.bmp') !!}"});
-                break;
-
-            case 3:
-                $(captcha).attr({"src": "{!! asset('img/captcha3.bmp') !!}"});
-                break;
-
-            case 4:
-                $(captcha).attr({"src": "{!! asset('img/captcha4.bmp') !!}"});
-                break;
-        }
+    $(document).ready(function () {
+        $(form).keydown(function (event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
     });
 
     $(".preview").click(function () {
+        validation();
+    });
+
+    function validation() {
+        if (/^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/.test(name.val())) {
+
+            name.removeClass("error");
+            errorName.css("display", "none");
+            if (/^([a-z0-9_.-]+)@(([a-z0-9-]+\.)+[a-z]{2,6})$/.test(mail.val())) {
+
+                mail.removeClass("error");
+                errorEmail.css("display", "none");
+                errorName.css("display", "none");
+
+                if (/^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}\$/.test(homepage.val()) || homepage.val() === "") {
+
+                    homepage.removeClass("error");
+                    errorHomepage.css("display", "none");
+
+                    if (/^[a-zA-Z0-9]+$/.test(captcha.val())) {
+
+                        captcha.removeClass("error");
+                        errorCaptcha.css("display", "none");
+
+                        if (/^(?!<$)(?!>$)(.*)$/.test(text.val())) {
+
+                            text.removeClass("error");
+                            errorText.css("display", "none");
+                            Preview();
+
+                        } else {
+                            text.addClass("error");
+                            errorText.css("display", "block");
+                        }
+                    } else {
+                        captcha.addClass("error");
+                        errorCaptcha.css("display", "block");
+                    }
+                }
+                else {
+                    homepage.addClass("error");
+                    errorHomepage.css("display", "block");
+                }
+            }
+            else {
+                mail.addClass("error");
+                errorEmail.css("display", "block");
+            }
+        }
+        else {
+            name.addClass("error");
+            errorName.css("display", "block");
+
+        }
+    }
+
+    function Preview() {
         var nameValue = name.val();
         var textValue = text.val();
 
         $(".commetns").html("<div class='panel panel-default'>" +
-            "<div class='panel-heading'>"+nameValue+"</div>" +
-            "<div class='panel-body'>"+textValue+"</div>" +
+            "<div class='panel-heading'>" + nameValue + "</div>" +
+            "<div class='panel-body'>" + textValue + "</div>" +
             "</div>" +
             "<a class='accept btn btn-success'>Accept</a> " +
             "<a class='cancel btn btn-danger'>Cancel</a>");
 
         $(".accept").click(function () {
-
-            $("#form").validate();
 
 
             var msg = $('.form').serialize();
@@ -53,11 +100,12 @@ $(document).ready(function () {
                 url: 'addComments',
                 data: msg,
                 success: function (data) {
-                    $('.results').html("Цена: " + data);
+                    $('.results').html(data);
                 }
             });
-        })
-    });
-
-
+        });
+    }
 });
+
+
+
