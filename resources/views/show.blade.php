@@ -36,5 +36,7 @@
             </tr>
         @endforeach
     </table>
-
+<div class="text-center">
+    {!! $data->links() !!}
+</div>
 @stop

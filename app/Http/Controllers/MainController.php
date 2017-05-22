@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use App\Comment;
 use App\Answer;
 
@@ -64,39 +65,39 @@ class MainController extends Controller
             switch ($_GET['sort']) {
                 case 'nameD':
                     $data = [
-                        'data' => Comment::orderBy('username', 'desc')->get()
+                        'data' => Comment::orderBy('username', 'desc')->paginate(25)
                     ];
                     break;
 
                 case 'nameE':
                     $data = [
-                        'data' => Comment::orderBy('username', 'asc')->get()
+                        'data' => Comment::orderBy('username', 'asc')->paginate(25)
                     ];
                     break;
                 case 'emailD':
                     $data = [
-                        'data' => Comment::orderBy('email', 'desc')->get()
+                        'data' => Comment::orderBy('email', 'desc')->paginate(25)
                     ];
                     break;
                 case 'emailE':
                     $data = [
-                        'data' => Comment::orderBy('username', 'asc')->get()
+                        'data' => Comment::orderBy('username', 'asc')->paginate(25)
                     ];
                     break;
                 case 'dateD':
                     $data = [
-                        'data' => Comment::orderBy('created_at', 'desc')->get()
+                        'data' => Comment::orderBy('created_at', 'desc')->paginate(25)
                     ];
                     break;
                 case 'dateE':
                     $data = [
-                        'data' => Comment::orderBy('created_at', 'asc')->get()
+                        'data' => Comment::orderBy('created_at', 'asc')->paginate(25)
                     ];
                     break;
             }
         } else {
             $data = [
-                'data' => Comment::orderBy('created_at', 'desc')->get()
+                'data' => Comment::orderBy('created_at', 'desc')->paginate(25)
             ];
         }
         return view('show', $data);
