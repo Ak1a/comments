@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>Leave your comments here</h1>
-    <form role="form" class="form" id="form">
+    <form role="form" class="form" id="form" action="addComments" method="get">
         <div class="form-group name_group">
             <label for="name">User name</label>
             <input id="name" name="name" type="text" class="form-control">
@@ -11,7 +11,7 @@
 
         <div class="form-group email_group">
             <label for="e_mail">E-mail</label>
-            <input id="e_mail" name="e-mail" type="text" class="form-control">
+            <input id="e_mail" name="e_mail" type="text" class="form-control">
             <label class="errorEmeil">E-mail entered incorrectly</label>
         </div>
 
@@ -36,7 +36,10 @@
             <label class="errorText">Allowed to enter only letters and numbers</label>
         </div>
         <input type="hidden" name="typeOfCom" value="main">
-        <input type="hidden" name="typeOfBrowser" class="typeOfBrowser" value="">
+        <input type="hidden" name="typeOfBrowser" class="typeOfBrowser" value="{!! $browser !!}">
+        <input type="hidden" name="IP" class="IP" value="{!! $ip !!}">
+        <input type="hidden" name="capthcaChek" class="capthcaChek" value="captcha1">
         <a class="preview btn btn-default">Preview</a>
+        <input type="submit">
     </form>
 @stop

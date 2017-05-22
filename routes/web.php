@@ -12,7 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('form');
+
+    $data=[
+        'ip'=>$_SERVER['REMOTE_ADDR'],
+        'browser' => $_SERVER['HTTP_USER_AGENT']
+    ];
+    return view('form', $data);
 });
 
 Route::get('addComments',"MainController@addComments");

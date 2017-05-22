@@ -14,24 +14,46 @@ class MainController extends Controller
         $comments = new Comment();
         $data = Comment::all();
 
-        if (!$data->isEmpty()) {
-            foreach ($data as $el) ;
-            $positionOfCom = unserialize($el->positionOfCom);
-            $positionOfCom [0]++;
-            $pos = serialize($positionOfCom);
-            $comments->add($pos);
-        } else {
-            $positionOfCom = [1];
-            $pos = serialize($positionOfCom);
-            $comments->add($pos);
+
+        function captcha()
+        {
+
+            if ($_GET['capthcaChek'] == 'captcha1' && $_GET['captcha'] == '28ivw') {
+                return true;
+            } else if ($_GET['capthcaChek'] == 'captcha2' && $_GET['captcha'] == 'k4ez') {
+                return true;
+            } else if ($_GET['capthcaChek'] == 'captcha3' && $_GET['captcha'] == 'jw62k') {
+                return true;
+            } else if ($_GET['capthcaChek'] == 'captcha4' && $_GET['captcha'] == 'xmqki') {
+                return true;
+            } else return false;
         }
 
-        if (!empty($_GET['name'])) {
-            if (!preg_match('/^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/', $_GET['name'])) {
-                return "пусто";
-            } else return $_GET['name'];
-        } else return "empty";
+        if (preg_match('/^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/', $_GET['name'])) {
+            if (preg_match('/^([a-z0-9_.-]+)@(([a-z0-9-]+\.)+[a-z]{2,6})$/', $_GET['e_mail'])) {
+                if (!preg_match('/^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}\$/', $_GET['homepage'] || empty($_GET['homepage']))) {
+                    if (captcha()) {
+                        if (preg_match('/^(?!<$)(?!>$)(.*)$/', $_GET['text'])) {
+                            if (!$data->isEmpty()) {
+                                foreach ($data as $el) ;
+                                $positionOfCom = unserialize($el->positionOfCom);
+                                $positionOfCom [0]++;
+                                $pos = serialize($positionOfCom);
+                                $comments->add($pos);
+                                return 'Everything is fine';
+                            } else {
+                                $positionOfCom = [1];
+                                $pos = serialize($positionOfCom);
+                                $comments->add($pos);
+                                return 'Everything is fine';
+                            }
+                        } else return 'Allowed to enter only letters and numbers in text area';
+                    } else return "Captcha entered incorrectly";
+                } else return "Homepage entered incorrectly";
+            } else return "Email entered incorrectly";
+        } else return "User name entered incorrectly";
     }
+
 
     public function showAll()
     {
