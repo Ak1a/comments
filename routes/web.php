@@ -12,7 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('form');
 });
 
 Route::get('addComments',"MainController@addComments");
+
+Route :: get('show','MainController@showAll');
+
+Route :: get('kaskad', 'MainController@showKaskad');
+
+Route:: get('formAnswer', 'MainController@answer');
+
+Route:: get('addAnswer', 'MainController@AddAnswer');

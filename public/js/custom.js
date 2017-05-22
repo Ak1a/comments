@@ -1,6 +1,7 @@
 /**
  * Created by Дмитрий on 18.05.2017.
  */
+alert(navigator.userAgent);
 $(document).ready(function () {
     var name = $('#name');
     var mail = $('#e_mail');
@@ -13,6 +14,9 @@ $(document).ready(function () {
     var errorHomepage = $(".errorHomepage");
     var errorCaptcha = $(".errorCaptcha");
     var errorText = $(".errorText");
+
+
+
 
 
     $(document).ready(function () {
