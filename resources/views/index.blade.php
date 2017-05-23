@@ -26,6 +26,15 @@
 <body>
 <div class="container">
 
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <ul>
+                <li><a href="{!! asset('show') !!}"></a></li>
+                <li><a href="{!! asset('kaskad') !!}"></a></li>
+            </ul>
+        </div>
+    </nav>
+
     @yield('content')
     <br>
     <div class="commetns"></div>

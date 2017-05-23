@@ -45,6 +45,6 @@
         <input type="hidden" name="IP" class="IP" value="{!! $ip !!}">
         <input type="hidden" name="capthcaChek" class="capthcaChek" value="captcha1">
         <a class="preview btn btn-default">Preview</a>
-        <input type="submit">
+        <input class="btn btn-default" type="submit">
     </form>
 @stop

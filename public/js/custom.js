@@ -16,7 +16,18 @@ $(document).ready(function () {
 
 
 
-
+$('#form').validate({
+    rules:{
+        name:"required",
+        e_mail:{
+            required:true,
+            email:true
+        },
+        homepage:"required",
+        captcha:"required",
+        text:"required"
+    }
+});
 
     $(document).ready(function () {
         $(form).keydown(function (event) {
@@ -78,6 +89,7 @@ $(document).ready(function () {
             }
         }
         else {
+
             name.addClass("error");
             errorName.css("display", "block");
 
@@ -100,7 +112,10 @@ $(document).ready(function () {
 
             var msg = $('.form').serialize();
             $.ajax({
+                type: "POST",
                 url: 'addComments',
+                processData: false,
+                contentType: false,
                 data: msg,
                 success: function (data) {
                     $('.results').html(data);
