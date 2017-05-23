@@ -1,7 +1,6 @@
 /**
  * Created by Дмитрий on 18.05.2017.
  */
-alert(navigator.userAgent);
 $(document).ready(function () {
     var name = $('#name');
     var mail = $('#e_mail');

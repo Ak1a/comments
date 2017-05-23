@@ -16,6 +16,7 @@ class AddFieldsCommentsTable extends Migration
         Schema::table('comments', function (Blueprint $table) {
             $table->string('dataOfBrowser')->after('text');
             $table->string('dataOfIP')->after('dataOfBrowser');
+            $table->string('dirOfFile')->after('dataOfIP');
         });
     }
 
@@ -29,6 +30,7 @@ class AddFieldsCommentsTable extends Migration
         Schema::table('comments', function (Blueprint $table) {
             $table->dropColumn('dataOfBrowser');
             $table->dropColumn('dataOfIP');
+            $table->dropColumn('dirOfFile');
         });
     }
 }

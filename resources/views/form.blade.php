@@ -2,7 +2,8 @@
 
 @section('content')
     <h1>Leave your comments here</h1>
-    <form role="form" class="form" id="form" action="addComments" method="get">
+    <form role="form" class="form" id="form" action="addComments" enctype="multipart/form-data" method="post">
+        <input name="_token" type="hidden" value="{{ csrf_token() }}">
         <div class="form-group name_group">
             <label for="name">User name</label>
             <input id="name" name="name" type="text" class="form-control">
@@ -34,6 +35,10 @@
             <label for="text">Comments</label>
             <textarea id="text" name="text" class="form-control">Input your massage</textarea>
             <label class="errorText">Allowed to enter only letters and numbers</label>
+        </div>
+        <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
+        <div class="form-group clear">
+            <input type="file" id="file" accept="text/plain,image/gif,image/bmp,image/jpg" name="file">
         </div>
         <input type="hidden" name="typeOfCom" value="main">
         <input type="hidden" name="typeOfBrowser" class="typeOfBrowser" value="{!! $browser !!}">

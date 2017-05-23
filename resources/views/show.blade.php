@@ -1,8 +1,10 @@
 @extends('index')
-<br>
-<br>
-<br>
+
 @section("content")
+
+    <br>
+    <br>
+    <br>
 
     <form action="show" method="get">
         <label for="sort">Choose sort</label>
@@ -23,6 +25,7 @@
             <td>E-mail</td>
             <td>Homepage</td>
             <td>Text</td>
+            <td>File</td>
             <td>Date add</td>
         </tr>
         </thead>
@@ -32,11 +35,32 @@
                 <td>{!! $el->email !!}</td>
                 <td>{!! $el->homepage !!}</td>
                 <td>{!! $el->text !!}</td>
+                <td>
+                    <button class="btn btn-primary lol" data-toggle="modal" data-target=".{!! $el->username !!}">Оpen file
+                    </button>
+                </td>
                 <td>{!! $el->created_at !!}</td>
             </tr>
+
+            <div class="modal fade {!! $el->username !!}" tabindex="-1" role="dialog"
+                 aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content text-center">
+                        @if (File::extension($el->dirOfFile) == "txt" )
+                            {!! File::get($el->dirOfFile) !!}
+                        @else
+                            <img class="image" src="{!! asset('upload/'.$el->dirOfFile) !!}">
+                        @endif
+                    </div>
+                </div>
+            </div>
+
         @endforeach
     </table>
-<div class="text-center">
-    {!! $data->links() !!}
-</div>
+    <div class="text-center">
+        {!! $data->links() !!}
+    </div>
+
+
+
 @stop

@@ -44,36 +44,58 @@
 <script src="{!! asset('node_modules/jquery-validation/dist/jquery.validate.js') !!}"></script>
 <script src="{!! asset('js/custom.js') !!}"></script>
 <script>
-   // $('.typeOfBrowser').val(navigator.userAgent);
-    $(".glyphicon-refresh").click(function () {
+    $(document).ready(function() {
 
-        var min = 1;
-        var max = 4;
-        var rand = Math.floor(Math.random() * (max - min + 1)) + min;
-        var captcha = "[alt=captcha]";
-        var captchaChek = $('.capthcaChek');
-        switch (rand) {
-            case 1:
-                $(captcha).attr({"src": "{!! asset('img/captcha1.bmp') !!}"});
-                captchaChek.val('captcha1');
-                break;
+        // $('.typeOfBrowser').val(navigator.userAgent);
+        $(".glyphicon-refresh").click(function () {
 
-            case 2:
-                $(captcha).attr({"src": "{!! asset('img/captcha2.bmp') !!}"});
-                captchaChek.val('captcha2');
-                break;
+            var min = 1;
+            var max = 4;
+            var rand = Math.floor(Math.random() * (max - min + 1)) + min;
+            var captcha = "[alt=captcha]";
+            var captchaChek = $('.capthcaChek');
+            switch (rand) {
+                case 1:
+                    $(captcha).attr({"src": "{!! asset('img/captcha1.bmp') !!}"});
+                    captchaChek.val('captcha1');
+                    break;
 
-            case 3:
-                $(captcha).attr({"src": "{!! asset('img/captcha3.bmp') !!}"});
-                captchaChek.val('captcha3');
-                break;
+                case 2:
+                    $(captcha).attr({"src": "{!! asset('img/captcha2.bmp') !!}"});
+                    captchaChek.val('captcha2');
+                    break;
 
-            case 4:
-                $(captcha).attr({"src": "{!! asset('img/captcha4.bmp') !!}"});
-                captchaChek.val('captcha4');
-                break;
-        }
+                case 3:
+                    $(captcha).attr({"src": "{!! asset('img/captcha3.bmp') !!}"});
+                    captchaChek.val('captcha3');
+                    break;
+
+                case 4:
+                    $(captcha).attr({"src": "{!! asset('img/captcha4.bmp') !!}"});
+                    captchaChek.val('captcha4');
+                    break;
+            }
+        });
     });
+    clear();
+   function clear() {
+       $("#file").remove();
+       $(".clear").append('<input type="file" id="file" accept="text/plain,image/gif,image/bmp,image/jpg" name="file">');
+   var control = document.getElementById("file");
+   control.addEventListener("change", function(event) {
+       // Когда происходит изменение элементов управления, значит появились новые файлы
+       var files = control.files;
+
+
+if(files[0].type === "text/plain" && files[0].size < 100000 || files[0].type === "image/gif" || files[0].type === "image/bmp" || files[0].type === "image/jpg"){
+
+}else {
+    alert("The maximum allowed file size is 100kb");
+    clear();
+}
+   }, false);
+
+   }
 
 </script>
 </html>

@@ -20,7 +20,7 @@ Route::get('/', function () {
     return view('form', $data);
 });
 
-Route::get('addComments',"MainController@addComments");
+Route::post('addComments',"MainController@addComments");
 
 Route :: get('show','MainController@showAll');
 
